@@ -50,7 +50,6 @@ class _TodoListState extends State<TodoList> {
           content: TextField(
             controller: TextEditingController(text: todos[index]),
             onChanged: (modifiedTodo) {
-              // Update the todo in the list
               setState(() {
                 todos[index] = modifiedTodo;
               });
