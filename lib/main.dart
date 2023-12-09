@@ -27,11 +27,8 @@ class _TodoListState extends State<TodoList> {
   @override
   void initState() {
     super.initState();
-    // Load todos from SharedPreferences when the app starts
     loadTodos();
   }
-
-  // Load todos from SharedPreferences
   Future<void> loadTodos() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -39,13 +36,11 @@ class _TodoListState extends State<TodoList> {
     });
   }
 
-  // Save todos to SharedPreferences
   Future<void> saveTodos() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setStringList('todos', todos);
   }
 
-  // Show a dialog for modifying the todo
   Future<void> _showEditDialog(int index) async {
     return showDialog(
       context: context,
@@ -70,7 +65,6 @@ class _TodoListState extends State<TodoList> {
             ),
             TextButton(
               onPressed: () {
-                // Save the updated todos list
                 saveTodos();
                 Navigator.of(context).pop();
               },
@@ -98,16 +92,14 @@ class _TodoListState extends State<TodoList> {
                   key: Key(todos[index]),
                   onDismissed: (direction) {
                     setState(() {
-                      // Remove the dismissed item from the todos list
+                      
                       todos.removeAt(index);
                     });
-                    // Save the updated todos list
                     saveTodos();
                   },
                   child: ListTile(
                     title: Text(todos[index]),
                     onTap: () {
-                      // Show a dialog for modifying the todo
                       _showEditDialog(index);
                     },
                   ),
@@ -128,7 +120,6 @@ class _TodoListState extends State<TodoList> {
                           todos.add(newTodo);
                           textController.clear();
                         });
-                        // Save the updated todos list
                         saveTodos();
                       }
                     },
@@ -146,7 +137,6 @@ class _TodoListState extends State<TodoList> {
                         todos.add(textController.text);
                         textController.clear();
                       });
-                      // Save the updated todos list
                       saveTodos();
                     }
                   },
@@ -164,8 +154,6 @@ class _TodoListState extends State<TodoList> {
       ),
     );
   }
-
-  // Show a dialog for clearing all todos
   Future<void> _showClearAllDialog() async {
     return showDialog(
       context: context,
@@ -182,11 +170,9 @@ class _TodoListState extends State<TodoList> {
             ),
             TextButton(
               onPressed: () {
-                // Clear all todos
                 setState(() {
                   todos.clear();
                 });
-                // Save the updated todos list
                 saveTodos();
                 Navigator.of(context).pop();
               },
